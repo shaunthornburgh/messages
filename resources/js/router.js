@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Messages from "./views/Messages";
+import Messages from "./views/MessagesApp";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 
