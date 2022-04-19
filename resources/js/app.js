@@ -9,6 +9,20 @@ import ValidationErrors from "./shared/components/ValidationErrors";
 const { createApp } = require('vue');
 const store = createStore(storeDefinition)
 
+window.axios.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        if (401 === error.response.status) {
+            this.$store.dispatch("logout");
+            this.$router.push({ name: 'home' });
+        }
+
+        return Promise.reject(error);
+    }
+);
+
 createApp({
         extends: Index,
         created() {

@@ -26,8 +26,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/', [ContactController::class, 'index'])->name('index');
     });
 
-    // Contacts
+    // Messages
     Route::prefix('messages')->name('messages.')->group(function () {
         Route::get('/{contact}', [MessageController::class, 'index'])->name('index');
+        Route::post('/', [MessageController::class, 'store'])->name('store');
     });
 });

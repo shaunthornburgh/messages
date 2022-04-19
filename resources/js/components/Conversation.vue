@@ -29,7 +29,7 @@
                         <li><a href="#" class="block px-3 py-3 transition-colors duration-300hover:bg-gray-100 hover:text-blue-600">Settings</a></li>
                         <li>
                             <a
-                                @click.prevent="logout"
+                                @click="$emit('logout')"
                                 href="#"
                                 class="block px-3 py-3 transition-colors duration-300 hover:bg-gray-100 hover:text-blue-600"
                             >Log out</a>
@@ -38,18 +38,25 @@
                 </div>
             </div>
         </div>
-        <MessagesFeed :contact="contact" :messages="messages"></MessagesFeed>
-        <MessageComposer @send="sendMessage"></MessageComposer>
+        <MessagesFeed
+            :contact="contact"
+            :messages="messages"
+        ></MessagesFeed>
+        <MessageForm
+            v-bind:errorMsg="error"
+            @submitMessage="submitMessage"
+        ></MessageForm>
     </div>
 </template>
 
 <script>
 import MessagesFeed from "./MessagesFeed";
-import MessageComposer from "./MessageComposer";
+import MessageForm from "./MessageForm";
+import { is422 } from "../shared/utils/response";
 
 export default {
     name: "Conversation",
-    components: {MessageComposer, MessagesFeed},
+    components: {MessageForm, MessagesFeed},
     props: {
         contact: {
             type: Object,
@@ -58,16 +65,36 @@ export default {
         messages: {
             type: Array,
             default: []
-        }
+        },
     },
     data() {
         return {
             isDropDownOpen: false,
+            error: {}
         }
     },
     methods: {
-        sendMessage(text) {
-            console.log(text);
+        submitMessage(text) {
+            this.error = null;
+            if (!this.contact) {
+                return
+            }
+
+            axios
+                .post('/api/messages', {
+                    'to': this.contact.id,
+                    'text': text
+                })
+                .then((response) => {
+                    this.$emit('new', response.data.data)
+                })
+                .catch(err => {
+                    if (is422(err)) {
+                        console.log(err.response.data.errors);
+                        this.error = err.response.data.errors;
+                        return;
+                    }
+                });
         }
     }
 }

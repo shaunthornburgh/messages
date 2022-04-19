@@ -1,5 +1,5 @@
 <template>
-    <div class="px-4 pt-6 flex flex grow lg:px-6 overflow-y-auto">
+    <div class="px-4 pt-6 flex flex grow lg:px-6 overflow-y-auto" ref="feed">
         <div
             class="flex flex-col space-y-4 w-full"
         >
@@ -51,6 +51,26 @@ export default {
         messages: {
             type: Array,
             required: true
+        }
+    },
+    methods: {
+        scrollToBottom() {
+            setTimeout(() => {
+                this.$refs.feed.scrollTop = this.$refs.feed.scrollHeight - this.$refs.feed.clientHeight;
+            }, 100);
+        }
+    },
+    computed: {
+        messagesLength() {
+            return this.messages.length
+        }
+    },
+    watch: {
+        contact() {
+            this.scrollToBottom();
+        },
+        messagesLength() {
+            this.scrollToBottom();
         }
     }
 }

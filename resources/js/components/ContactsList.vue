@@ -10,14 +10,14 @@
                 <a href="#" :class="isActive('history') ? 'border-blue-600 text-blue-600 font-semibold' : 'border-white'" @click.prevent="setActive('history')" class="px-4 pt-4 pb-3 border-b-2 hover:text-blue-600 hover:border-blue-500">History</a>
             </nav>
         </div>
-        <div class="flex flex-grow px-4 pt-4 pb-8 border-t border-gray-200 lg:px-6 overflow-y-auto">
+        <div class="flex flex-grow pt-4 pb-8 border-t border-gray-200 overflow-y-auto">
             <div class="w-full" :class="isActive('chats') ? 'block' : 'hidden'">
                 <div class="xl:space-y-2">
-                    <!-- user -->
                     <div
                         v-for="(contact, index) in contacts" :key="contact.id"
                         @click="selectContact(index, contact)"
-                        class="flex items-center justify-between py-2"
+                        class="flex items-center justify-between py-2 px-4"
+                        :class="{'bg-gray-100': selected === index}"
                     >
                         <a href="#" class="flex items-center space-x-3">
                             <div class="relative self-start">
@@ -31,7 +31,6 @@
                         </a>
                         <span class="block mb-1 text-sm text-gray-600">2 hrs</span>
                     </div>
-                    <!--/user -->
                 </div>
             </div>
             <!-- media tab -->

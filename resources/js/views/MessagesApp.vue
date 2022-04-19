@@ -104,6 +104,8 @@
             <Conversation
                 :contact="selectedContact"
                 :messages="messages"
+                @new="addMessage"
+                @logout="logout"
             ></Conversation>
         </div>
     </main>
@@ -129,6 +131,9 @@ export default {
             });
     },
     methods: {
+        addMessage(text) {
+            this.messages.push(text);
+        },
         async logout() {
             try {
                 axios.post("/logout");
