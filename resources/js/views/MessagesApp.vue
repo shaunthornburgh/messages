@@ -97,8 +97,14 @@
                     </div>
                 </div>
             </div>
-            <ContactsList :contacts="contacts"></ContactsList>
-            <Conversation :contact="selectedContact" messages="messages"></Conversation>
+            <ContactsList
+                :contacts="contacts"
+                @selected="getMessages"
+            ></ContactsList>
+            <Conversation
+                :contact="selectedContact"
+                :messages="messages"
+            ></Conversation>
         </div>
     </main>
 </template>
@@ -132,6 +138,13 @@ export default {
                 this.$store.dispatch("logout");
                 this.$router.push({ name: "auth-login" });
             }
+        },
+        getMessages(contact) {
+            axios.get(`/api/messages/${contact.id}`)
+                .then((response) => {
+                    this.messages = response.data.data;
+                    this.selectedContact = contact;
+                });
         }
     }
 }

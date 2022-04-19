@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Contacts
     Route::prefix('contacts')->name('contacts.')->group(function () {
         Route::get('/', [ContactController::class, 'index'])->name('index');
+    });
+
+    // Contacts
+    Route::prefix('messages')->name('messages.')->group(function () {
+        Route::get('/{contact}', [MessageController::class, 'index'])->name('index');
     });
 });

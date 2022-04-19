@@ -15,10 +15,10 @@
                 <div class="xl:space-y-2">
                     <!-- user -->
                     <div
-                        v-for="contact in contacts" :key="contact.id"
+                        v-for="(contact, index) in contacts" :key="contact.id"
+                        @click="selectContact(index, contact)"
                         class="flex items-center justify-between py-2"
                     >
-
                         <a href="#" class="flex items-center space-x-3">
                             <div class="relative self-start">
                                 <img :src="contact.profile_image" class="w-8 h-8 rounded-full" alt="contact.name">
@@ -63,9 +63,15 @@ export default {
     data() {
         return {
             tab: 'chats',
+            selected: 0
         }
     },
     methods: {
+        selectContact(index, contact) {
+            this.selected = index;
+
+            this.$emit('selected', contact);
+        },
         isActive(menuItem) {
             return this.tab === menuItem
         },

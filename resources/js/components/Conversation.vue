@@ -2,7 +2,7 @@
     <div class="w-full bg-white h-screen flex flex-col">
         <div class="flex justify-end h-14 px-6 py-3 bg-white border-b border-gray-200 md:justify-between ">
             <div class="flex items-center">
-                <span class="hidden text-sm font-semibold text-gray-700 lg:flex">Conversation with Taylor Brown</span>
+                <span class="hidden text-sm font-semibold text-gray-700 lg:flex">{{ contact ? 'Conversation with ' + contact.name : 'Select a contact' }}</span>
             </div>
             <div class="flex items-center space-x-3">
                 <button class="relative inline-flex items-center justify-center w-10 h-10 text-gray-600 transition-all duration-300 scale-100 bg-transparent rounded-full hover:scale-105 hover:text-blue-600 hover:-rotate-12">
@@ -38,279 +38,36 @@
                 </div>
             </div>
         </div>
-
-        <!-- msg body -->
-        <div class="px-4 pt-6 flex lg:px-6 overflow-y-auto">
-            <div class="flex flex-col space-y-4 w-full">
-                <!-- comment -->
-                <div class="flex items-start max-w-lg pt-3">
-                    <img src="/images/user3.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                        <span class="flex space-x-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Taylor Brown</span>
-                                        </span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                3 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Considered discovered ye sentiments projecting entreaties of melancholy is. </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start self-end max-w-lg pt-3 space-x-3">
-                    <img src="/images/user.jpg" class="order-2 w-12 h-12 ml-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1 order-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Morris Ward</span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                2 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Attachment apartments in delightful by motionless it no. And now she burst sir learn total. </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start max-w-lg pt-3">
-                    <img src="/images/user3.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                        <span class="flex space-x-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Taylor Brown</span>
-                                        </span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                3 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed. . </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start max-w-lg pt-3">
-                    <img src="/images/user3.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                        <span class="flex space-x-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Taylor Brown</span>
-                                        </span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                3 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Sure polite his really and others figure though. </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start self-end max-w-lg pt-3 space-x-3">
-                    <img src="/images/user.jpg" class="order-2 w-12 h-12 ml-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1 order-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Morris Ward</span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                2 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Is allowance instantly strangers applauded discourse so. Separate entrance welcomed sensible laughing why one moderate shy.</p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start max-w-lg pt-3">
-                    <img src="/images/user3.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                        <span class="flex space-x-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Taylor Brown</span>
-                                        </span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                3 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Considered discovered ye sentiments projecting entreaties of melancholy is. </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start self-end max-w-lg pt-3 space-x-3">
-                    <img src="/images/user.jpg" class="order-2 w-12 h-12 ml-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1 order-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Morris Ward</span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                2 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Attachment apartments in delightful by motionless it no. And now she burst sir learn total. </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start max-w-lg pt-3">
-                    <img src="/images/user3.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                        <span class="flex space-x-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Taylor Brown</span>
-                                        </span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                3 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Their saved linen downs tears son add music. Expression alteration entreaties mrs can terminated estimating. Her too add narrow having wished. To things so denied admire. Am wound worth water he linen at vexed. . </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start max-w-lg pt-3">
-                    <img src="/images/user3.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                        <span class="flex space-x-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Taylor Brown</span>
-                                        </span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                3 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Sure polite his really and others figure though. </p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-
-                <!-- comment -->
-                <div class="flex items-start self-end max-w-lg pt-3 space-x-3">
-                    <img src="/images/user.jpg" class="order-2 w-12 h-12 ml-3 rounded-full" alt="Image placeholder">
-                    <div class="flex-1 order-1">
-                        <div class="px-4 py-4 rounded-md bg-gradient-to-b from-gray-100 to-white lg:px-6 lg:pb-6">
-                            <div class="flex items-end justify-between pb-3">
-                                <span class="text-sm font-semibold text-gray-700 transition-colors duration-300 hover:text-gray-700">Morris Ward</span>
-                                <div class="flex items-center space-x-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                    </svg>
-                                    <span class="block text-xs font-semibold tracking-wider text-gray-600 uppercase">
-                                                2 hours ago
-                                            </span>
-                                </div>
-                            </div>
-                            <p class="block text-sm text-gray-800">Is allowance instantly strangers applauded discourse so. Separate entrance welcomed sensible laughing why one moderate shy.</p>
-                        </div>
-                    </div>
-                </div>
-                <!--/ comment -->
-            </div>
-            <!--/ leave comment -->
-        </div>
-
-        <!-- leave comment -->
-        <div class="flex items-center pt-3 px-4 pb-4 lg:px-6">
-            <img src="/images/user.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
-            <div class="flex-1">
-                <input type="text" class="w-full px-4 py-3 text-sm placeholder-gray-400 border border-gray-200 rounded-md" placeholder="Leave a message">
-            </div>
-        </div>
+        <MessagesFeed :contact="contact" :messages="messages"></MessagesFeed>
+        <MessageComposer @send="sendMessage"></MessageComposer>
     </div>
 </template>
 
 <script>
+import MessagesFeed from "./MessagesFeed";
+import MessageComposer from "./MessageComposer";
+
 export default {
     name: "Conversation",
+    components: {MessageComposer, MessagesFeed},
+    props: {
+        contact: {
+            type: Object,
+            default: null
+        },
+        messages: {
+            type: Array,
+            default: []
+        }
+    },
     data() {
         return {
             isDropDownOpen: false,
+        }
+    },
+    methods: {
+        sendMessage(text) {
+            console.log(text);
         }
     }
 }
