@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\NewMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Resource\MessageResource;
@@ -35,6 +36,8 @@ class MessageController extends Controller
             'to' => $request->to,
             'text' => $request->text
         ]);
+
+        broadcast(new NewMessage($message))->toOthers();
 
         return $this->generateResponse($message, 201);
     }

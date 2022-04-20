@@ -114,6 +114,7 @@
 <script>
 import Conversation from "../components/Conversation";
 import ContactsList from "../components/ContactsList";
+import { mapState } from 'vuex';
 
 export default {
     components: {Conversation, ContactsList},
@@ -124,11 +125,24 @@ export default {
             contacts: []
         }
     },
+    computed: {
+        ...mapState({
+            userId: state => state.user.id
+        }),
+    },
     mounted() {
         axios.get('/api/contacts')
             .then((response) => {
                 this.contacts = response.data.data;
             });
+    },
+    watch: {
+        userId(userId) {
+            Echo.private(`messages.${userId}`)
+                .listen('NewMessage', (e) => {
+                    this.handleIncoming(e.message);
+                });
+        }
     },
     methods: {
         addMessage(text) {
@@ -150,6 +164,11 @@ export default {
                     this.messages = response.data.data;
                     this.selectedContact = contact;
                 });
+        },
+        handleIncoming(message) {
+            if (this.selectedContact && message.from === this.selectedContact.id) {
+                this.addMessage(message);
+            }
         }
     }
 }

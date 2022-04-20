@@ -18,8 +18,8 @@
                     >
                         <img src="/images/user.jpg" alt="Image placeholder" class="w-10 h-10 rounded-full">
                         <div class="text-left">
-                            <span class="text-sm font-semibold text-gray-800 transition-colors duration-300 hover:text-blue-600">Morris Ward</span>
-                            <span class="relative block text-xs text-gray-700">morris.ward@example.com</span>
+                            <span class="text-sm font-semibold text-gray-800 transition-colors duration-300 hover:text-blue-600">{{ name }}</span>
+                            <span class="relative block text-xs text-gray-700">{{ email }}</span>
                         </div>
                     </button>
                     <ul
@@ -53,6 +53,7 @@
 import MessagesFeed from "./MessagesFeed";
 import MessageForm from "./MessageForm";
 import { is422 } from "../shared/utils/response";
+import {mapState} from "vuex";
 
 export default {
     name: "Conversation",
@@ -72,6 +73,12 @@ export default {
             isDropDownOpen: false,
             error: {}
         }
+    },
+    computed: {
+        ...mapState({
+            name: (state) => state.user.name,
+            email: (state) => state.user.email,
+        }),
     },
     methods: {
         submitMessage(text) {

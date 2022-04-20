@@ -17,6 +17,8 @@ class ContactController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->generateResponse(ContactResource::collection(User::all()), 200);
+        $contacts = User::where('id', '!=', auth()->id())->get();
+
+        return $this->generateResponse(ContactResource::collection($contacts), 200);
     }
 }
