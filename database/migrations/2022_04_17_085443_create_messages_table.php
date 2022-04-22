@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('from');
             $table->unsignedBigInteger('to');
+            $table->boolean('read')->default(false);
             $table->text('text');
             $table->timestamps();
         });

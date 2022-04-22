@@ -43,6 +43,7 @@
             :messages="messages"
         ></MessagesFeed>
         <MessageForm
+            v-if="contact"
             v-bind:errorMsg="error"
             @submitMessage="submitMessage"
         ></MessageForm>

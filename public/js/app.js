@@ -22880,12 +22880,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       tab: 'chats',
-      selected: 0
+      selected: this.contacts.length ? this.contacts[0] : null
     };
   },
   methods: {
-    selectContact: function selectContact(index, contact) {
-      this.selected = index;
+    selectContact: function selectContact(contact) {
+      this.selected = contact;
       this.$emit('selected', contact);
     },
     isActive: function isActive(menuItem) {
@@ -23327,7 +23327,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     axios.get('/api/contacts').then(function (response) {
-      _this.contacts = response.data.data;
+      var contacts = response.data.data;
+      _this.contacts = _.sortBy(contacts, [function (contact) {
+        return contact.unread;
+      }]).reverse();
     });
   },
   watch: {
@@ -23340,8 +23343,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
-    addMessage: function addMessage(text) {
-      this.messages.push(text);
+    addMessage: function addMessage(message) {
+      this.messages.push(message);
     },
     logout: function logout() {
       var _this3 = this;
@@ -23378,6 +23381,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getMessages: function getMessages(contact) {
       var _this4 = this;
 
+      this.updateUnreadCount(contact, true);
       axios.get("/api/messages/".concat(contact.id)).then(function (response) {
         _this4.messages = response.data.data;
         _this4.selectedContact = contact;
@@ -23387,6 +23391,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.selectedContact && message.from === this.selectedContact.id) {
         this.addMessage(message);
       }
+
+      this.updateUnreadCount(message.from_contact, false);
+      this.contacts = this.sortContacts();
+    },
+    updateUnreadCount: function updateUnreadCount(contact, reset) {
+      this.contacts = this.contacts.map(function (single) {
+        if (single.id !== contact.id) {
+          return single;
+        }
+
+        if (reset) {
+          single.unread = 0;
+        } else {
+          single.unread += 1;
+        }
+
+        return single;
+      });
+    },
+    sortContacts: function sortContacts() {
+      return _.sortBy(this.contacts, [function (contact) {
+        return contact.unread;
+      }]).reverse();
     }
   }
 });
@@ -23491,16 +23518,18 @@ var _hoisted_12 = {
 var _hoisted_13 = {
   "class": "block text-sm text-gray-600"
 };
-
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_14 = {
+  key: 0,
+  "class": "flex block mb-1 w-5 h-5 text-blue-600 bg-blue-100 rounded-md text-sm font-bold items-center justify-center"
+};
+var _hoisted_15 = {
+  key: 1,
   "class": "block mb-1 text-sm text-gray-600"
-}, "2 hrs", -1
-/* HOISTED */
-);
+};
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"grid grid-cols-3 gap-2\"><img src=\"/images/thumbnail1.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail3.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail2.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail5.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail4.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail8.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"></div>", 1);
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"grid grid-cols-3 gap-2\"><img src=\"/images/thumbnail1.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail3.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail2.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail5.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail4.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"><img src=\"/images/thumbnail8.jpg\" class=\"object-cover w-full rounded-md\" alt=\"Image placeholder\"></div>", 1);
 
-var _hoisted_16 = [_hoisted_15];
+var _hoisted_17 = [_hoisted_16];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "#",
@@ -23528,14 +23557,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["w-full", $options.isActive('chats') ? 'block' : 'hidden'])
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.contacts, function (contact, index) {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.contacts, function (contact) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: contact.id,
       onClick: function onClick($event) {
-        return $options.selectContact(index, contact);
+        return $options.selectContact(contact);
       },
       "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["flex items-center justify-between py-2 px-4", {
-        'bg-gray-100': $data.selected === index
+        'bg-gray-100': $data.selected === contact
       }])
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       src: contact.profile_image,
@@ -23547,7 +23576,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(contact.email), 1
     /* TEXT */
-    )])]), _hoisted_14], 10
+    )])]), contact.unread ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(contact.unread), 1
+    /* TEXT */
+    )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_15, "2 hrs"))], 10
     /* CLASS, PROPS */
     , _hoisted_7);
   }), 128
@@ -23556,7 +23587,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" media tab "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.isActive('media') ? 'block' : 'hidden')
-  }, _hoisted_16, 2
+  }, _hoisted_17, 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" media tab"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.isActive('history') ? 'block' : 'hidden')
@@ -23675,12 +23706,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     messages: $props.messages
   }, null, 8
   /* PROPS */
-  , ["contact", "messages"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MessageForm, {
+  , ["contact", "messages"]), $props.contact ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MessageForm, {
+    key: 0,
     errorMsg: $data.error,
     onSubmitMessage: $options.submitMessage
   }, null, 8
   /* PROPS */
-  , ["errorMsg", "onSubmitMessage"])]);
+  , ["errorMsg", "onSubmitMessage"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),

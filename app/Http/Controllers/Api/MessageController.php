@@ -20,7 +20,15 @@ class MessageController extends Controller
      */
     public function index(User $contact): JsonResponse
     {
-        $messages = Message::where('from', $contact->id)->orWhere('to', $contact->id)->get();
+        Message::where('from', $contact->id)->where('to', auth()->id())->update(['read' => true]);
+
+        $messages = Message::where( function($query) use ($contact) {
+            $query->where('from', auth()->id());
+            $query->where('to', $contact->id);
+        })->orWhere( function($query) use($contact) {
+            $query->where('from', $contact->id);
+            $query->where('to', auth()->id());
+        })->get();
 
         return $this->generateResponse(MessageResource::collection($messages), 200);
     }

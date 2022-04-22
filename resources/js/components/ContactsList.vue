@@ -14,10 +14,10 @@
             <div class="w-full" :class="isActive('chats') ? 'block' : 'hidden'">
                 <div class="xl:space-y-2">
                     <div
-                        v-for="(contact, index) in contacts" :key="contact.id"
-                        @click="selectContact(index, contact)"
+                        v-for="contact in contacts" :key="contact.id"
+                        @click="selectContact(contact)"
                         class="flex items-center justify-between py-2 px-4"
-                        :class="{'bg-gray-100': selected === index}"
+                        :class="{'bg-gray-100': selected === contact}"
                     >
                         <a href="#" class="flex items-center space-x-3">
                             <div class="relative self-start">
@@ -29,7 +29,16 @@
                                 <span class="block text-sm text-gray-600">{{ contact.email }}</span>
                             </div>
                         </a>
-                        <span class="block mb-1 text-sm text-gray-600">2 hrs</span>
+                        <span
+                            v-if="contact.unread"
+                            class="flex block mb-1 w-5 h-5 text-blue-600 bg-blue-100 rounded-md text-sm font-bold items-center justify-center "
+                        >
+                          {{ contact.unread }}
+                        </span>
+                        <span
+                            v-else
+                            class="block mb-1 text-sm text-gray-600"
+                        >2 hrs</span>
                     </div>
                 </div>
             </div>
@@ -62,12 +71,12 @@ export default {
     data() {
         return {
             tab: 'chats',
-            selected: 0
+            selected: this.contacts.length ? this.contacts[0] : null
         }
     },
     methods: {
-        selectContact(index, contact) {
-            this.selected = index;
+        selectContact(contact) {
+            this.selected = contact;
 
             this.$emit('selected', contact);
         },

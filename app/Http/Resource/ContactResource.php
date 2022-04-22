@@ -13,6 +13,7 @@ class ContactResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'profile_image' => $this->profile_image,
+            'unread' => $this->unread
         ];
     }
 }
