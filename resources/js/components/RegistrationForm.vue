@@ -15,6 +15,20 @@
 
         <form action="#" class="block space-y-6" method="post">
             <div class="space-y-2">
+                <label for="email" class="block text-sm font-semibold text-gray-700">Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md text-sm"
+                    placeholder="Name"
+                    required="required"
+                    v-model="user.name"
+                    :class="[{'border-red-500': errorFor('email')}]"
+                >
+                <ValidationErrors :errors="errorFor('name')"></ValidationErrors>
+            </div>
+            <div class="space-y-2">
                 <label for="email" class="block text-sm font-semibold text-gray-700">Email Address</label>
                 <input
                     type="text"
@@ -23,7 +37,7 @@
                     class="w-full px-4 py-3 border border-gray-300 rounded-md text-sm"
                     placeholder="Email address"
                     required="required"
-                    v-model="email"
+                    v-model="user.email"
                     :class="[{'border-red-500': errorFor('email')}]"
                 >
                 <ValidationErrors :errors="errorFor('email')"></ValidationErrors>
@@ -31,23 +45,38 @@
             <div class="space-y-2">
                 <div class="flex justify-between">
                     <label for="password" class="block text-sm font-semibold text-gray-700">Password</label>
-                    <a href="#" class="text-sm font-semibold text-blue-600 hover:underline">Forgot password?</a>
                 </div>
                 <input
                     type="password"
                     name="password"
                     id="password"
-                    class="w-full px-4 py-3 border  border-gray-300 rounded-md text-sm"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md text-sm"
                     placeholder="Password"
                     required="required"
-                    v-model="password"
+                    v-model="user.password"
                     :class="[{'border-red-500': errorFor('password')}]"
                 >
                 <ValidationErrors :errors="errorFor('password')"></ValidationErrors>
             </div>
+            <div class="space-y-2">
+                <div class="flex justify-between">
+                    <label for="password" class="block text-sm font-semibold text-gray-700">Password confirmation</label>
+                </div>
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    id="password_confirmation"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md text-sm"
+                    placeholder="Confirm your password"
+                    required="required"
+                    v-model="user.password_confirmation"
+                    :class="[{'border-red-500': errorFor('password_confirmation')}]"
+                >
+                <ValidationErrors :errors="errorFor('password_confirmation')"></ValidationErrors>
+            </div>
             <button
                 type="submit"
-                @click.prevent="login"
+                @click.prevent="register"
                 class="flex items-center justify-center w-full px-4 py-4 space-x-1 text-sm font-semibold leading-4 text-center transition-colors duration-300 bg-blue-600 rounded-md hover:bg-blue-700 text-blue-50">
                 <span>
                     Register

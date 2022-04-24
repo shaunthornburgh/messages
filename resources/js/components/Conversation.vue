@@ -17,10 +17,16 @@
                         @click="isDropDownOpen=!isDropDownOpen"
                     >
                         <img
+                            v-if="profile_image"
                             :src="profile_image"
-                            alt="Image placeholder"
+                            alt="{{ name }} image"
                             class="w-10 h-10 rounded-full"
                         >
+                        <span v-else class="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
+                            <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </span>
                         <div class="text-left">
                             <span class="text-sm font-semibold text-gray-800 transition-colors duration-300 hover:text-blue-600">{{ name }}</span>
                             <span class="relative block text-xs text-gray-700">{{ email }}</span>
@@ -30,7 +36,13 @@
                         v-if="isDropDownOpen"
                         class="absolute z-20 w-40 py-1 mt-2 text-sm font-semibold text-gray-700 transition-all origin-top-right bg-white rounded shadow -right-2 lg:w-64"
                     >
-                        <li><a href="#" class="block px-3 py-3 transition-colors duration-300hover:bg-gray-100 hover:text-blue-600">Settings</a></li>
+                        <li>
+                            <a
+                                @click="showUserSettingsModal"
+                                href="#"
+                                class="block px-3 py-3 transition-colors duration-300hover:bg-gray-100 hover:text-blue-600"
+                            >Settings</a>
+                        </li>
                         <li>
                             <a
                                 @click="$emit('logout')"
@@ -59,6 +71,7 @@ import MessagesFeed from "./MessagesFeed";
 import MessageForm from "./MessageForm";
 import { is422 } from "../shared/utils/response";
 import {mapState} from "vuex";
+import UserSettingsModal from "./UserSettingsModal";
 
 export default {
     name: "Conversation",
@@ -107,7 +120,12 @@ export default {
                         return;
                     }
                 });
+
+        },
+        showUserSettingsModal() {
+            this.$emit('showUserSettingsModal');
+            this.isDropDownOpen = false;
         }
-    }
+    },
 }
 </script>

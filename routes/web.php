@@ -10,8 +10,6 @@ Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/{all}', function () {
     return view('app');
 })->where('all', '^(?!api\/)[\/\w\.-]*');

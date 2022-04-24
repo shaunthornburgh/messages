@@ -19,7 +19,7 @@ class ContactController extends Controller
      */
     public function index(): JsonResponse
     {
-        $contacts = User::join('messages', 'users.id', '=', 'messages.from')
+        $contacts = User::leftJoin('messages', 'users.id', '=', 'messages.from')
             ->select('users.id', 'users.name', 'users.email', 'users.profile_image', DB::raw('MAX(messages.created_at) as last_message_at'))
             ->where('users.id', '!=', auth()->id())
             ->groupBy('users.id')

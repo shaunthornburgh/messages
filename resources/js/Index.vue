@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="relative z-10 flex items-center justify-center flex-1 w-full px-4 py-6 pt-12 pb-12 lg:py-32 ">
+            <div class="relative z-10 flex items-center justify-center flex-1 w-full px-4 py-6">
                 <div class="w-full max-w-md">
                     <router-view></router-view>
                 </div>

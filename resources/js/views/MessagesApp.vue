@@ -10,28 +10,41 @@
                 :messages="messages"
                 @new="addMessage"
                 @logout="logout"
+                @showUserSettingsModal="showUserSettingsModal = true"
             ></Conversation>
         </div>
     </main>
+    <UserSettingsModal
+        :user="user"
+        v-if="showUserSettingsModal"
+        @closed="showUserSettingsModal = false"
+        @submit="updateUser(user)"
+    ></UserSettingsModal>
 </template>
 
 <script>
 import Conversation from "../components/Conversation";
 import ContactsList from "../components/ContactsList";
 import { mapState } from 'vuex';
+import UserSettingsModal from "../components/UserSettingsModal";
+import {is422} from "../shared/utils/response";
 
 export default {
-    components: {Conversation, ContactsList},
+    components: {UserSettingsModal, Conversation, ContactsList},
     data() {
         return {
             selectedContact: null,
             messages: [],
-            contacts: []
+            contacts: [],
+            showUserSettingsModal: false,
         }
     },
     computed: {
         ...mapState({
             userId: state => state.user.id
+        }),
+        ...mapState({
+            user: state => state.user
         }),
     },
     mounted() {
@@ -102,6 +115,20 @@ export default {
             return _.sortBy(this.contacts, [(contact) => {
                 return contact.unread;
             }]).reverse();
+        },
+        async updateUser(user) {
+            try {
+                await axios.put('/api/users/' + this.userId, user);
+                this.$store.dispatch("loadUser");
+                this.showUserSettingsModal = false;
+
+            } catch(error) {
+                if (is422(error)) {
+                    this.error = error.response.data.errors;
+                    return;
+                }
+            };
+
         }
     }
 }
