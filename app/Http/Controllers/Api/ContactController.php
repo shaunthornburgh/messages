@@ -19,7 +19,11 @@ class ContactController extends Controller
      */
     public function index(): JsonResponse
     {
-        $contacts = User::where('id', '!=', auth()->id())->get();
+        $contacts = User::join('messages', 'users.id', '=', 'messages.from')
+            ->select('users.id', 'users.name', 'users.email', 'users.profile_image', DB::raw('MAX(messages.created_at) as last_message_at'))
+            ->where('users.id', '!=', auth()->id())
+            ->groupBy('users.id')
+            ->get();
 
         $unreadIds = Message::select(DB::raw('`from` as sender_id, count(`from`) as messages_count'))
             ->where('to', auth()->id())

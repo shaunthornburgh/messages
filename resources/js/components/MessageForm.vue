@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center pt-3 px-4 pb-4 lg:px-6 bg-gray-100 mt-3 border-t border-gray-200">
-        <img src="/images/user.jpg" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
+        <img :src="profile_image" class="w-12 h-12 mr-3 rounded-full" alt="Image placeholder">
         <div class="flex-1">
             <input
                 v-model="text"
@@ -18,6 +18,7 @@
 
 <script>
 import validationErrors from "../shared/mixins/validationErrors";
+import {mapState} from "vuex";
 
 export default {
     name: "MessageForm",
@@ -28,6 +29,11 @@ export default {
         return {
             text: ''
         }
+    },
+    computed: {
+        ...mapState({
+            profile_image: (state) => state.user.profile_image,
+        }),
     },
     mixins: [validationErrors],
     methods: {

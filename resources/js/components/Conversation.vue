@@ -16,7 +16,11 @@
                         class="inline-flex space-x-3 text-gray-700 duration-300 scale-100 h hover:text-blue-600"
                         @click="isDropDownOpen=!isDropDownOpen"
                     >
-                        <img src="/images/user.jpg" alt="Image placeholder" class="w-10 h-10 rounded-full">
+                        <img
+                            :src="profile_image"
+                            alt="Image placeholder"
+                            class="w-10 h-10 rounded-full"
+                        >
                         <div class="text-left">
                             <span class="text-sm font-semibold text-gray-800 transition-colors duration-300 hover:text-blue-600">{{ name }}</span>
                             <span class="relative block text-xs text-gray-700">{{ email }}</span>
@@ -79,6 +83,7 @@ export default {
         ...mapState({
             name: (state) => state.user.name,
             email: (state) => state.user.email,
+            profile_image: (state) => state.user.profile_image,
         }),
     },
     methods: {
@@ -98,7 +103,6 @@ export default {
                 })
                 .catch(err => {
                     if (is422(err)) {
-                        console.log(err.response.data.errors);
                         this.error = err.response.data.errors;
                         return;
                     }

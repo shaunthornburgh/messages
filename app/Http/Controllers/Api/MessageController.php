@@ -10,6 +10,7 @@ use App\Models\Message;
 use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -42,11 +43,11 @@ class MessageController extends Controller
         $message = Message::create([
             'from' => auth()->id(),
             'to' => $request->to,
-            'text' => $request->text
+            'text' => $request->text,
         ]);
 
         broadcast(new NewMessage($message))->toOthers();
 
-        return $this->generateResponse($message, 201);
+        return $this->generateResponse(new MessageResource($message), 201);
     }
 }

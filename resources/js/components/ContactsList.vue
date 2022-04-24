@@ -38,7 +38,9 @@
                         <span
                             v-else
                             class="block mb-1 text-sm text-gray-600"
-                        >2 hrs</span>
+                        >
+                            {{ moment(contact.last_message_at).fromNow() }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -60,6 +62,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
     name: "ContactsList",
     props: {
@@ -71,8 +75,12 @@ export default {
     data() {
         return {
             tab: 'chats',
-            selected: this.contacts.length ? this.contacts[0] : null
+            selected: this.contacts.length ? this.contacts[0] : null,
+            date: new Date()
         }
+    },
+    created: function () {
+        this.moment = moment;
     },
     methods: {
         selectContact(contact) {
