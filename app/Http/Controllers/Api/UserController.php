@@ -14,7 +14,15 @@ class UserController extends Controller
 {
     use ResponseTrait;
 
+    public function index()
+    {
+        $users = User::all()->pluck('email');
+
+        return $this->generateResponse($users, 200);
+    }
+
     /**
+     * @param User $user
      * @param StoreUserRequest $request
      * @return JsonResponse
      */

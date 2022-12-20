@@ -1,8 +1,7 @@
 <template>
     <div class="px-8 py-4 lg:px-12 lg:py-12">
         <div class="py-4 space-y-1 text-center lg:pb-10 ">
-            <img src="/images/aircontrol-logo-dark.svg" alt="logo" class="z-20 inline-block mx-auto mb-10 h-7">
-            <h2 class="text-lg font-semibold  text-gray-800 lg:text-2xl ">Sign in to AirControl</h2>
+            <h2 class="text-lg font-semibold  text-gray-800 lg:text-2xl ">Sign in to Messages</h2>
             <p class="text-sm font-semibold text-gray-700">Don't have an account?
                 <router-link
                     :to="{name: 'auth-register'}"
